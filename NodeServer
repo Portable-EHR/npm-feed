@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+/*
+ * Copyright © Portable EHR inc, 2021
+ */
+
+Object.assign(process.env, {
+    PEHR_NODE_CWD:          __dirname,
+    PEHR_NODE_LIB_CONFIG:   '/lib/config.js',
+    PEHR_NODE_LIB_NODE:     '/lib/node.js',
+    PEHR_NODE_LIB_SAPI:     '/lib/sapi.js',
+    PEHR_NODE_APP:          '/NodeServerApp.js',
+});
+require('@portable-ehr/nodecore/bin/NodeServer');

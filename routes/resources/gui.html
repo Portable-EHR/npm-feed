@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PortableEHR Feed Login</title>
+    <script src="/resources/gui.js"></script>
+    <link rel="stylesheet" href="/resources/gui.css">
+    <link rel="icon" href="/resources/images/favicon.ico">
+</head>
+<body>
+    <header class="page-header">
+        <div>
+            <img src="/resources/images/logo-ehr512x512.png" alt="pEhr logo" />
+            <h2>PortableEHR Feed</h2>
+        </div>
+        <div class="inactive" id="pageCtrl">
+            <p id="userId" title="Logged in as"></p>
+            <div title="Logoff">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="30" height="30" id="logoff">
+                    <path fill="currentColor" d="m310.06 655.31c-122.24 0-221.47-99.22-221.47-221.47 0.004-60.88 24.72-115.94 64.53-155.96l0.19 0.18c8.05-11.11 21.05-18.4 35.81-18.4 24.45 0 44.32 19.83 44.32 44.28 0 14.99-7.5 28.2-18.91 36.22l0.16 0.15c-23.93 24.1-38.91 57-38.91 93.53 0 73.7 60.11 133.54 134.16 133.54 74.04 0 134.12-59.84 134.12-133.54 0-33.34-12.54-63.58-32.9-86.93-12.12-7.91-20.19-21.53-20.19-37.07 0-24.45 19.86-44.31 44.31-44.31 11.95 0 22.75 4.83 30.72 12.53l0.62-0.62c40.06 40.05 64.88 95.32 64.88 156.4 0 122.25-99.19 221.47-221.44 221.47zm-0.03-219.93c-24.54 0-44.28-20.11-44.28-45.1v-178.66c0-24.99 19.74-45.09 44.28-45.09s44.31 20.1 44.31 45.09v178.66c0 24.99-19.77 45.1-44.31 45.1z" />
+                </svg>
+            </div>
+        </div>
+    </header>
+    <main >
+        <div class="login" id="loginDiv">
+            <h3>Login</h3>
+            <form id="loginForm" method="post" >
+                <input type="text" id="username" placeholder="Username" autofocus required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </main>
+    <footer class="page-footer"><p>© Copyright Portable EHR inc, 2020</p></footer>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<template id="full-singlepage-template">
+    <style>
+        .main-section {
+            display: flex;
+            flex-flow: column wrap;
+            width: fit-content;
+            padding: 10px 20px 0;
+            margin: 10px auto 0;
+        }
+
+        /*----- Tab Links -----*/
+
+        .tablinks {
+            display: flex;
+            flex-flow: row wrap;
+            padding: 0;
+            margin: 0 20px;
+            align-items: center;
+        }
+        .tablinks li {
+            margin:5px 5px 0;
+            float:left;
+            list-style:none;
+        }
+        .tablinks label {
+            margin-bottom: 5px;
+        }
+        .tablinks select {
+            margin-bottom: 5px;
+        }
+
+        .tablinks a {
+            padding:9px 15px;
+            display:inline-block;
+            border-radius:3px 3px 0px 0px;
+            background:#a7cce5;
+            font-size:16px;
+            font-weight:600;
+            color:#4c4c4c;
+            transition:all linear 0.15s;
+            text-decoration:none;
+        }
+
+        .tablinks a:hover, .tablinks a:focus {
+            background:#7fb5da;
+        }
+
+        .tablinks li.active a {
+            background:#fff;
+            color:#4c4c4c;
+        }
+        .tablinks li.active a:hover, .tablinks li.active a:focus {
+            background:#eeeeee;
+        }
+
+        .feed_aliases {
+            margin-right: 25px;
+        }
+
+        /*----- Tabs -----*/
+        .tabs {
+        }
+
+        /*----- Content of Tabs -----*/
+        .tab {
+            display:none;
+
+            padding:15px;
+            border-radius:3px;
+            box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+            background:#fff;
+        }
+
+        .tab.active {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+
+        .search_and_select {
+            display: flex;
+        }
+        .bordered {
+            border: solid 1px #cccccc;
+        }
+       .editor {
+            margin: 0 0 10px 15px;
+            display:flex;
+            flex-flow: column;
+        }
+        patient-editor {
+            padding: 0 15px;
+        }
+        .toolbuttons {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            background:#f5f5f5;
+            justify-content: end;
+            padding: 5px;
+        }
+        .tooltipped {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        .tooltipped::after {     /*  The little triangle linking the tooltip to the tooltiped */
+            content: "";
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            margin-left: -7px;
+            border-width: 7px;
+            border-style: solid;
+            border-color: transparent transparent #225B78 transparent;
+            visibility: hidden;
+        }
+        .tooltipped:hover::after {
+            visibility: visible;
+            transition: all 0.05s 0.8s;
+        }
+        .tooltip {
+            visibility: hidden;
+            background: #225B78;    /* logo blue */
+            color: #fff;
+            /*color:#e3f4ff; !* pale blue *!*/
+            /*color: #70F8F2; !* logo complement blue *!*/
+            /*color: #fff3d0; !* sand *!*/
+            /*color: #ceffb0; !* pale green *!*/
+            text-align: left;
+            border-radius: 6px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            top: 110%;
+            left: 50%;
+            margin-left: -300%;
+            opacity: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltipped:hover .tooltip {
+            transition: all 0.05s 0.8s;
+            visibility: visible;
+        }
+
+        .toolbutton {
+            margin: 0 5px;
+        }
+        .additem {
+            padding: 0 5px 2px;
+            font-size:20px;
+            font-weight:600;
+        }
+        .inactive {
+            display: none;
+        }
+    </style>
+
+    <section class="main-section">
+        <!-- Tab links -->
+        <ul class="tablinks" id="theTabLinkList">
+            <li>
+                <label for="feedAliases">Feed</label>
+                <select id="feedAliases" class="feed_aliases">
+                </select>
+            </li>
+            <li><a class="tablink" href="#staff" id="staffTabLink">Staff</a></li>
+            <li class="active"><a class="tablink" href="#patient" id="patientTabLink">Patient</a></li>
+            <li><a class="tablink" href="#privMsg" id="privMsgTabLink">Message</a></li>
+            <li><a class="tablink" href="#rdv" id="rdvTabLink">Appointment</a></li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tabs" id="theTabs">
+            <div id="staff" class="tab">
+
+                <staff-search-and-select class="search_and_select" id="staffSearchAndSelect"></staff-search-and-select>
+
+                <p>Staff editor goes here.</p>
+            </div>
+
+            <div id="patient" class="tab active">
+
+                <patient-search-and-select class="search_and_select" id="patientSearchAndSelect"></patient-search-and-select>
+
+                <p>Patient editor goes here.</p>
+            </div>
+
+            <div id="privMsg" class="tab">
+
+                <p>Private Message editor goes here.</p>
+            </div>
+
+            <div id="rdv" class="tab">
+
+                <p>Appointment editor goes here.</p>
+            </div>
+        </div>
+    </section>
+</template>
+
+<template id="search-and-select-template">
+    <style>
+        .search_and_select {
+            display: flex;
+            flex-flow: column nowrap;
+            flex-grow: 1;
+            margin: 0;
+
+            width: 20em;
+            transition: all 0s ease-in-out 0.15s;
+        }
+        .search_form {
+            display:flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            background:#f5f5f5;
+            padding: 7px 10px;
+        }
+        #searchStrInput {
+            margin: 0 4px;
+        }
+        .search_submit {
+            padding: 2px 5px 2px 2px;
+            font-size:20px;
+            font-weight:600;
+            border: none;
+        }
+        .search_submit:hover {
+            border-radius: 3px;
+            background:#d4ecf4;
+        }
+
+        /* search results */
+        .searched_list {
+            display: block;
+            margin: 0;
+            padding: 0;
+            color:#4c4c4c;
+            background:#f5f5f5;
+            white-space: normal;
+
+
+            overflow: scroll;
+            flex-grow: 1;
+            max-height: 30em;
+        }
+        .under_attention {
+            width:100%
+        }
+        .list_scaled_to_sibling {
+            height: 0;
+            max-height: none;
+        }
+
+        .searched_list li {
+
+            margin: 0;
+            padding: 5px;
+            cursor: pointer;
+            color: #4c4c4c;
+            background: #f5f5f5;
+            list-style: none;
+            border: solid 1px #cccccc;
+
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow: ellipsis;
+        }
+        .searched_list li:hover, .searched_list li:focus {
+            background:#d4ecf4;
+        }
+
+        .searched_list li.selected {
+            /*background:#fff7e4;*/
+            background:#e3f4ff;
+        }
+        .searched_list li.selected:hover, .searched_list li.selected:focus {
+            background:#a7cce5;
+        }
+
+        .tooltipped {
+            position: relative;
+        }
+        .tooltipped::after {     /*  The little triangle linking the tooltip to the tooltiped */
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: 110%;
+            left: 30%;
+            margin-left: -7px;
+            border-width: 7px;
+            border-style: solid;
+            border-color: transparent transparent #225B78 transparent;
+            visibility: hidden;
+        }
+        .tooltipped:hover::after {
+            visibility: visible;
+            transition: all 0.05s 0.8s;
+        }
+        .tooltip {
+            visibility: hidden;
+            background: #225B78;    /* logo blue */
+            color: #fff;
+            /*color:#e3f4ff; !* pale blue *!*/
+            /*color: #70F8F2; !* logo complement blue *!*/
+            /*color: #fff3d0; !* sand *!*/
+            /*color: #ceffb0; !* pale green *!*/
+            text-align: left;
+            border-radius: 6px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            top: 110%;
+            left: 50%;
+            margin-left: -45%;
+            opacity: 1;
+            overflow: visible;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltipped:hover .tooltip {
+            transition: all 0.05s 0.8s;
+            visibility: visible;
+        }
+    </style>
+
+    <div class="search_and_select under_attention" id="searchAndSelect">
+        <form class="search_form" id="searchForm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z"/></svg>
+            <input type="search" aria-label="Search" placeholder="Search" id="searchStrInput" size="20" autocomplete="off">
+            <input class="search_submit" type="submit" value="⏎" id="searchSubmit" title="Submit search">
+        </form>
+        <ul class="searched_list" id="searchedList">
+            <div class="tooltipped">
+                <pre class="tooltip">Please move the mouse from in between two items !</pre>
+                <li></li>
+            </div>
+        </ul>
+    </div>
+</template>
+
+<template id="collapsible-div-template">
+    <style>
+        .topdown {
+            display: flex;
+            flex-flow: column wrap;
+            flex-grow: 1;
+
+            margin: 5px 0 0;
+            padding: 0;
+            border: solid 1px #cccccc;
+        }
+        .collapsbutton {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            cursor: pointer;
+            color: black;
+            background:#f5f5f5;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        .collapsbutton:hover, .collapsbutton:focus-within {
+            background: #d4ecf4;
+        }
+        .uncollapsed svg {
+            transform: scale(1, -1);
+            transform-origin: center;
+        }
+        .oneliner {
+            font-size: 1.1em;
+            font-family: "DejaVu Serif";
+            vertical-align: middle;
+            margin-right: 30px;
+
+            /*  the following  flex-grow:1  and  width:0  attributes allow .collapsbutton width to be sized on  */
+            /*  that of sibling .collapsible div content, providing their parent is a display:flex container. */
+            flex-grow: 1;
+            width:0;
+
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow: ellipsis;
+        }
+        .collapsible {
+            display: none;
+            margin: 5px 0 15px 15px;
+        }
+    </style>
+
+    <div class="topdown">
+            <div class="collapsbutton" id="collapsbutton">
+                <div class="oneliner">
+                    <slot name="legend" id="legend"> </slot>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                </svg>
+            </div>
+        <div class="collapsible">
+            <slot name="collapsible" id="collapsible"> </slot>
+        </div>
+    </div>
+</template>
+
+<datalist id="countryList">
+</datalist>
+<datalist id="languageList">
+</datalist>

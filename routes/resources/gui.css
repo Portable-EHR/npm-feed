@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) Portable EHR inc, 2019
+ */
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background:#d4ecf4;
+    display: flex;
+    flex-flow: column wrap;
+}
+.page-header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px 0;
+}
+.page-header div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.page-header div.inactive {
+    display: none;
+}
+
+.page-header img {
+    float : left;
+    width: 40px;
+    height: 40px;
+}
+.page-header h2 {
+    margin: 0 7px;
+}
+#userId {
+    margin: 0 10px;
+    padding: 5px 10px;
+    font-family: "DejaVu Sans";
+    font-style: italic;
+    border-radius: 3px;
+    background: #a7cce5;
+}
+.page-header svg:hover {
+    border-radius: 3px;
+    background: #a7cce5;
+}
+.page-footer {
+    margin: 10px auto;
+    font-size: x-small;
+}
+
+main {
+    margin:15px auto;
+}
+.login{
+    background:#FFF;
+    width: 300px;
+    padding: 20px 40px 25px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    float:left;
+    margin-top:50px;
+}
+
+input[type=text],input[type=password]{
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    margin-bottom: -5px;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    color: #4f4f4f;
+    font-size: 16px;
+    border-radius: 5px;
+}
+input[type=submit] {
+    margin-top: 30px;
+}
