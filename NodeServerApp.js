@@ -5,6 +5,7 @@
 'use strict';
 
 const fileTag = __filename.replace(/(.*\/)(.+?)([.]js)?$/, '$2');
+const logger  = require('log4js').getLogger(fileTag);
 
 const os       = require('os');
 const cron     = require('node-schedule');
@@ -16,7 +17,7 @@ const node = require('./lib/node');
 
 const app = express();
 
-const start = async logger => {
+const start = async () => {
 
     try {
         await node.initialize(app, logger);
